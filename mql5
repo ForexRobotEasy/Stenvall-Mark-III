@@ -1,0 +1,89 @@
+
+// Program: Stenvall Mark III
+// Developer's Site: forexroboteasy.com
+// Development: Forex Robot Easy Team
+
+// Include necessary libraries and dependencies
+#include <Trade\Trade.mqh>
+#include <Trading\Trading.mqh>
+#include <Utilities\Utilities.mqh>
+
+// Define global variables
+CTrade trade;
+CTrading trading;
+CUtilities utilities;
+
+// Define trading parameters
+input int nightStartHour = 21; // Start of night scalping trading hours
+input int nightEndHour = 5; // End of night scalping trading hours
+input int signalAccuracy = 70; // Minimum accuracy of trading signals
+input int maxDrawdown = 8; // Maximum allowable drawdown
+
+// Define main trading function
+void OnTick()
+{
+    // Check if it is within the specified night scalping trading hours
+    if (Hour() >= nightStartHour || Hour() <= nightEndHour)
+    {
+        // Perform night scalping trades
+        
+        // Check trading signals accuracy
+        if (utilities.GetSignalAccuracy() >= signalAccuracy)
+        {
+            // Execute trades based on trend and countertrend strategies
+            if (trading.TrendStrategy())
+            {
+                trade.Buy();
+            }
+            else if (trading.CountertrendStrategy())
+            {
+                trade.Sell();
+            }
+        }
+    }
+    else
+    {
+        // Perform extended trading hours
+        
+        // Check trading signals accuracy
+        if (utilities.GetSignalAccuracy() >= signalAccuracy)
+        {
+            // Execute trades based on trend and countertrend strategies
+            if (trading.TrendStrategy())
+            {
+                trade.Buy();
+            }
+            else if (trading.CountertrendStrategy())
+            {
+                trade.Sell();
+            }
+        }
+    }
+}
+
+// Define trend strategy function
+bool CTrading::TrendStrategy()
+{
+    // Implement trend strategy logic here
+    
+    // Return true if a trend trade should be executed, false otherwise
+    return true;
+}
+
+// Define countertrend strategy function
+bool CTrading::CountertrendStrategy()
+{
+    // Implement countertrend strategy logic here
+    
+    // Return true if a countertrend trade should be executed, false otherwise
+    return true;
+}
+
+// Define utility function to calculate signal accuracy
+int CUtilities::GetSignalAccuracy()
+{
+    // Implement signal accuracy calculation logic here
+    
+    // Return the calculated signal accuracy percentage
+    return signalAccuracy;
+}
